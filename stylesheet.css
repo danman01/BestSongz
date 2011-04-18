@@ -1,0 +1,190 @@
+/*
+	Name: Smashing HTML5
+	Date: July 2009
+	Description: Sample layout for HTML5 and CSS3 goodness.
+	Version: 1.0
+	Author: Enrique Ramírez
+	Autor URI: http://enrique-ramirez.com
+*/
+
+/* Imports */
+@import url('http://meyerweb.com/eric/tools/css/reset/reset.css');
+@import url("global-forms.css");
+
+/***** Global *****/
+/* Body */
+	body {
+		background: #F5F4EF url('../images/bg.png');
+		color: #000305;
+		font-size: 87.5%; /* Base font size: 14px */
+		font-family: 'Trebuchet MS', Trebuchet, 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+		line-height: 1.429;
+		margin: 0;
+		padding: 0;
+		text-align: left;
+	}
+
+/* Headings */
+h2 {font-size: 1.571em}	/* 22px */
+h3 {font-size: 1.429em}	/* 20px */
+h4 {font-size: 1.286em}	/* 18px */
+h5 {font-size: 1.143em}	/* 16px */
+h6 {font-size: 1em}	/* 14px */
+
+h2, h3, h4, h5, h6 {
+	font-weight: 400;
+	line-height: 1.1;
+	margin-bottom: .8em;
+}
+
+/* Anchors */
+a {outline: 0;}
+a img {border: 0px; text-decoration: none;}
+a:link, a:visited {
+	color: #C74350;
+	padding: 0 1px;
+	text-decoration: underline;
+}
+a:hover, a:active {
+	background-color: #C74350;
+	color: #fff;
+	text-decoration: none;
+	text-shadow: 1px 1px 1px #333;
+}
+
+/* Paragraphs */
+p {margin-bottom: 1.143em;}
+* p:last-child {margin-bottom: 0;}
+
+strong, b {font-weight: bold;}
+em, i {font-style: italic;}
+
+::-moz-selection {background: #F6CF74; color: #fff;}
+::selection {background: #F6CF74; color: #fff;}
+
+/* Lists */
+ul {
+	list-style: outside disc;
+	margin: 1em 0 1.5em 1.5em;
+}
+
+ol {
+	list-style: outside decimal;
+	margin: 1em 0 1.5em 1.5em;
+}
+
+dl {margin: 0 0 1.5em 0;}
+dt {font-weight: bold;}
+dd {margin-left: 1.5em;}
+
+/* Quotes */
+blockquote {font-style: italic;}
+cite {}
+
+q {}
+
+/* Tables */
+table {margin: .5em auto 1.5em auto; width: 98%;}
+
+	/* Thead */
+	thead th {padding: .5em .4em; text-align: left;}
+	thead td {}
+
+	/* Tbody */
+	tbody td {padding: .5em .4em;}
+	tbody th {}
+
+	tbody .alt td {}
+	tbody .alt th {}
+
+	/* Tfoot */
+	tfoot th {}
+	tfoot td {}
+
+/***** Layout *****/
+	.body {clear: both; margin: 0 auto; width: 800px;}
+	img.right figure.right {float: right; margin: 0 0 2em 2em;}
+	img.left, figure.left {float: right; margin: 0 0 2em 2em;}
+	
+	/*
+		Extras
+	*****************/
+	#extras {margin: 0 auto 3em auto; overflow: hidden;}
+
+	#extras ul {list-style: none; margin: 0;}
+	#extras li {border-bottom: 1px solid #fff;}
+	#extras h2 {
+		color: #C74350;
+		font-size: 1.429em;
+		margin-bottom: .25em;
+		padding: 0 3px;
+	}
+
+	#extras a:link, #extras a:visited {
+		color: #444;
+		display: block;
+		border-bottom: 1px solid #F4E3E3;
+		text-decoration: none;
+		padding: .3em .25em;
+	}
+
+		/* Blogroll */
+		#extras .blogroll {
+			float: left;
+			width: 615px;
+		}
+
+		#extras .blogroll li {float: left; margin: 0 20px 0 0; width: 185px;}
+
+		/* Social */
+		#extras .social {
+			float: right;
+			width: 175px;
+		}
+		#extras li:last-child, /* last <li>*/
+		#extras li:last-child a /* <a> of last <li> */
+		{border: 0}
+		#extras .blogroll li:nth-last-child(2),
+		#extras .blogroll li:nth-last-child(3),
+		#extras .blogroll li:nth-last-child(2) a,
+		#extras .blogroll li:nth-last-child(3) a {border: 0;}
+
+/** FOOTER **/
+
+/*
+	About
+*****************/
+#about {
+	background: #fff;
+	font-style: normal;
+	margin-bottom: 2em;
+	overflow: hidden;
+	padding: 20px;
+	text-align: left;
+	width: 760px;
+
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+}
+
+#about .primary {float: left; width: 165px;}
+#about .primary strong {color: #C64350; display: block; font-size: 1.286em;}
+#about .photo {float: left; margin: 5px 20px;}
+
+#about .url:link, #about .url:visited {text-decoration: none;}
+
+#about .bio {float: right; width: 500px;}
+
+/*
+	Footer
+*****************/
+#contentinfo {padding-bottom: 2em; text-align: right;}
+
+
+/*enable html 5 */
+header, section, footer,
+aside, nav, article, figure {
+	display: block;
+}
+
