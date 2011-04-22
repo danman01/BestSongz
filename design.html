@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://opengraphprotocol.org/schema/">
+        <head>
+        <title>BestSongz | Find The Songs You Were Meant To Hear</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="description" content="Search for any artist and we return the top songs, based on actual fan sentiment" />        <meta name="keywords" content="" />
+        <meta name="Pragma" content="no-cache" />
+        <meta name="Cache-control" content="no-cache" />
+                <meta name="ROBOTS"  content="ALL" />
+
+                <!-- Site verifications -->
+   
+        
+	<meta property="fb:app_id" content="appid" />
+        <meta property="fb:page_id" content="pageid" /> 
+        
+<meta property='og:type' content='website' />
+
+<meta property='og:title' content='BestSongz | Find the Best Songz from any artist' />
+<meta property='og:url' content='http://www.answerbag.com' />
+<meta property='og:image' content='http://gorankem.com/logo32.png' />
+<meta property='og:description' content='Find the Best Songz from any artist' />
+<meta property='fb:admins' content='adminid' />
+<meta property='og:site_name' content='BestSongz' />
+
+
+             
+
+        			 
+
+             
+		        <link rel="stylesheet" href="stylesheet.css" type="text/css" />
+				
+                
+                
+		<!-- IE Specific Stylesheets : start -->
+		<!--[if IE 9]>
+			<link rel="stylesheet" href="http://i.abimg.net/ui/stylesheets/ie9.css?j=1303256718a" type="text/css" media="screen" />
+		<![endif]-->
+
+		<!--[if IE 8]>
+			<link rel="stylesheet" href="http://i.abimg.net/ui/stylesheets/ie8.css?j=1303256718a" type="text/css" media="screen" />
+		<![endif]-->
+		<!--[if lte IE 7]>
+			<link rel="stylesheet" href="http://i.abimg.net/ui/stylesheets/ie7.css?j=1303256718a" type="text/css" media="screen" />
+		<![endif]-->
+		<!--[if lte IE 6]>
+			<link rel="stylesheet" href="http://i.abimg.net/ui/stylesheets/ie6.css?j=1303256718a" type="text/css" media="screen" />
+		<![endif]-->
+		<!-- IE Specific Stylesheets : end -->
+        
+				<script src="http://ui.abimg.net/js/min/prototaculous.min.js?k=1303256718a" type="text/javascript"></script>
+				<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
+				<script src="hhttp://ui.abimg.net/js/min/answerbag.min.js?k=1303256718a" type="text/javascript"></script>
+
+		
+		
+		<script type="text/javascript">
+		/*
+			f
+				// can run document.ready jquery here using $
+				//$('.bg').css('height','26px');
+				$('.fbWrapper').css('display','none');
+				$('.fbWrapper').delay(1500).fadeIn('slow');
+				// bind to login dialog to login link
+				$('.login-dialog').click(function() {
+					AB.dialog('login');
+				});
+
+				$('.logout-now').click(function() {
+					$.getJSON('/ajax/logout', null, function(json) {
+						if (json) {
+							AB.dialog('logout');
+						} else {
+							AB.dialog('error?error='+escape('logout failed'));
+						}
+					});
+				});
+
+				window.fb_login_now = function(show_confirmation) {
+					FB.login(function(response) {
+						if (response.session && response.perms) {
+							$.ajax({
+								url: '/ajax/facebook_auth',
+								type: 'POST',
+								dataType: 'json',
+								data: { perms: response.perms },
+								success: function(json) {
+									if (typeof json == 'string') { // error string
+										AB.dialog('error?error='+escape(json));
+										return;
+									}
+
+									AB.user_id = json.user_id;
+
+									if (json.new_account) {
+										AB.dialog('login/registered/facebook');
+									} else if (show_confirmation) {
+										AB.dialog('login/logged-in');
+									} else {
+										AB.onLogin();
+									}
+								}
+							});
+						} else if(show_confirmation) {
+							AB.dialog('login?error='+escape('You must authorize Answerbag to login with Facebook.'));
+						}
+					}, { perms:'email' });
+					return false;
+				};
+
+				$('.fb-login-now').click( function() { window.fb_login_now(false); });
+			
+			
+				
+				
+
+			});
+			AB.user_id = 1518850;
+		/*
+		</script>
+       	<script type="text/javascript">
+	jQuery.noConflict()(function($) {
+		$(document).ready(function(){
+			var query;
+				$('#button1').click(function(){
+					query=$("#query").val();
+					var url='http://gorankem.com:4000/api/v1/artist/tracks/'+query+'.js?callback=?';
+
+				$.getJSON(url,function(json){
+					$.each(json.tracks,function(i,track){
+					   $("#results").append('<p>'+track.title+':'+track.rank+'</p>');
+					});
+				});
+				var img_url='http://gorankem.com:4000/api/v1/artist/image2/'+query+'.js?callback=?';
+				$.getJSON(img_url,function(json){
+					$.each(json.image,function(i,img){
+					   $("#results").prepend('<p><img src='+img.url+' /></p>');
+					});
+				});
+			});
+			var query;
+				$('#button2').click(function(){
+					query=$("#query").val();
+
+			});
+		});
+	})
+	function toggle_categories(a){cat_dropdown=a===undefined?
+		$("category_dropdown"):$(a);
+		if(cat_dropdown.style.display=="none")
+		{new Effect.SlideDown(cat_dropdown);
+			$("categories_tab").className="selected";
+			for(var b in tabs)
+			if(
+				$(tabs[b]+"_tab")
+				)
+				if($(tabs[b]+"_tab").className=="selected"){selected=tabs[b];
+				$(selected+"_tab").className="none";break}
+		}
+		else
+		{new Effect.SlideUp(cat_dropdown);
+			$("categories_tab").className="none";
+				if($(selected+"_tab"))
+					$(selected+"_tab").className="selected"
+		}
+	return false}
+		</script>
+		
+		<script type="text/javascript">
+		 var _gaq = _gaq || [];
+		  _gaq.push(['_setAccount', 'UA-22336211-1']);
+		  _gaq.push(['_trackPageview']);
+
+		  (function() {
+		    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		</script>
+	
+    </head>
+    
+    <body id="Template2a">
+		<div id="fb-root"></div>
+
+		<script>
+		/*
+			window.fbAsyncInit = function() {
+				(function($) {
+					// code using $ for jquery
+					AB.XD = $.extend(true, { }, FB.XD);
+
+					FB.XD.recv = function(data) {
+						if (data.match(/type=dismissEdgeCommentDialog/)) {
+							var cb = data.match(/cb=([0-9a-f]+)/i);
+							cb = cb[1];
+							var href = $('iframe[src*='+cb+']').parent().parent().attr('href');
+							// [AL] Disabling Universal Like since conflicts with regular likes
+							// window.universal_like(href);
+						}
+						AB.XD.recv(data);
+					}
+				})(jQuery);
+
+				FB.init({
+					appId  : 129507778518,
+					status : true, // check login status
+					cookie : true, // enable cookies to allow the server to access the session
+					xfbml  : true,  // parse XFBML,
+					channelUrl : (window.location.protocol + '//' + window.location.host + '/fb/xd.html')
+				});
+								FB.Event.subscribe('edge.create', function (href, widget) {
+					new Ajax.Request('/ajax/ajax_request?type=fblike&url=' + href);
+				});  				
+			
+
+			(function() {
+				var e = document.createElement('script');
+				e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+				e.async = true;
+				document.getElementById('fb-root').appendChild(e);
+			}());
+		*/
+		</script>
+    
+        
+
+        <!-- Header : start -->
+
+        <div class="Header">
+            <div class="Frame FLC">
+            	<div class="fl">
+					<a data-lk="/" class="logo"><img src="http://gorankem.com/images/logo_accelerate.png" alt="BestSongz" /></a>
+				</div>
+                <div class="fr">
+
+                <div class="topbar"><span>
+                <ul class="Login">
+                                        	<li class="welcome">Welcome danman01!</li>
+                        <li><a href="/profile/">Profile</a></li>
+                     
+                        <li class="logout"><a class="logout-now">Logout</a></li>
+                        
+                                    </ul>
+                 </span>
+
+                </div><br /><!--This is for IE7-->
+                <div class="askpoll">
+					<a data-lk="/ask/" class="">
+                    <dl>
+                        <dd><span class="btn_ask"><span>Rank an Artist</span></span></dd>
+                        <dd><span class="btn_or">or</span></dd>
+                        <dd><span class="btn_poll"><span>Do Something else</span></span></dd>
+
+                    </dl>
+					</a>
+                </div>
+            </div>
+            </div>
+        </div>
+        <!-- Header : end -->
+
+        <!-- Navigation : start -->
+
+        <div class="Navigation" id="navigation" style="height:44px;">
+                        <div class="Frame FLC">
+            	<form class="SearchAnswers" action="/search/" method="get">
+                    <input type="text" class="textInput" id="globalSearch"  value="" name="q" />
+                    <input type="submit" class="submitButton Heading6a" value="" name="" />
+                </form>
+                
+                <div class="navContainer">
+                    <ul class="Nav1">
+                        <li id="home_tab" class="selected"><a href="/">Home</a></li>
+
+                        <li id="categories_tab" ><a href="/categories/" onclick="toggle_categories(); return false;">Genres</a></li>
+                       	<li id="questions_tab" ><a href="/questions/">Questions</a></li>
+                        <li id="forums_tab" ><a data-lk="/forums/" class="">Forums</a></li>
+															<li id="blog_tab" class="hoverIndicator"><a data-lk="/blog/" class="">Blog</a><div class="blogIndicator"><div class="content"><dl><dt>NEW!</dt><dd></dd></dl></div><div class="bottom"></div></div></li>
+							                    </ul></div>
+                    <div class="navContainer">
+
+                        <div class="CategoryNav FLC" id="category_dropdown" style="background-color:white; z-index:100000; height: 180px; padding: 0 20px 0 20px; display:none;">
+                            <ul class="categories FLC" style="padding: 20px 0 0 5px;">
+ 																	<li><a href="/category/arts_28" title="">Rock</a></li>
+									<li><a href="/category/autos-motorcycles_2">Country &amp; Western</a></li>
+									<li><a href="/category/business_29">Rap</a></li>
+									<li><a href="/category/computers_20">Folk</a></li>
+
+									<li><a href="/category/diet-and-fitness_22">D &amp B</a></li>
+									<li><a href="/category/education_106">Electronic</a></li>
+									<li><a href="/category/electronics_30">Ambient</a></li>
+									<li><a href="/category/entertainment_31">Metal</a></li>
+									<li><a href="/category/environmentalism_10163">Jazz</a></li>
+
+									<li><a href="/category/fashion-and-beauty_25">R &amp B</a></li>
+									<li><a href="/category/finance_33">Blues</a></li>
+									<li><a href="/category/food-dining_184">Techno &amp; House</a></li>
+									<li><a href="/category/games_21">World</a></li>
+									<li><a href="/category/health-fitness_36">Big Band</a></li>
+
+									
+								                            </ul>
+                            <a onclick="toggle_categories(); return false;" class="close"><img src="http://i.abimg.net/ui/images/buttons/blue_close.png" width="15" height="15" alt="Close the Category Navigation Menu" /></a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation : end -->
+
+		<!-- Container for Profile Modal -->
+		<div class="ProfileModal">
+			<a class="close"><img src="http://i.abimg.net/ui/images/buttons/popup_close_button.png"></a>
+			<div class="header"></div>
+			<div class="content">
+				<img class="loading" src="/images/bar.gif" />
+			</div>
+			<div class="footer"></div>
+
+		</div>
+		<!-- Container for Profile Modal : end -->
+
+
+
+            <script type="text/javascript">
+                selected = '';
+                tabs = new Array('home', 'topics', 'questions', 'polls', 'debates', 'forum', 'blog');
+				// below are unused   
+                var cat_dropdown = '';
+                var navigation = '';
+            </script>
+
+
+
+    <!-- Content : start -->
+    <div class="Content" id="Home">
+
+        <div class="Frame FLC">
+        
+                        
+            <div class="Box1 SearchAnswers">
+                <label for="askQuestion" class="Heading1a">Enter an artist ID</label>
+                <input type="text" name="question" value="" id="query" class="textInput" style="background-image: none;" />
+				<input type="submit" id="button1" name="go" value="Submit" class="submitButton Heading2a" />
+            
+			</div>
+			<!-- Column 2 : start -->
+            <div class="Column2">
+
+				<div class="SuperButtonAd">
+
+		<center>
+	advertise with us
+		</center>	
+
+
+					                </div>
+				<div id="fbLikeModule" class="FacebookLike"  >
+    <h3 class="Heading3a">Follow us on Facebook!</h3>
+    <div class="bg">
+		<div class="fbWrapper">
+		<fb:like-box href="http://www.facebook.com/rankem" width="276" show_faces="false" stream="false" header="true"></fb:like-box>
+			
+						</div>
+
+    </div>
+    <div class="bg-end"></div>
+</div>
+
+				                <!-- Leaderboard : start -->
+                    <div id="Leaderboard">
+                        <h2 class="Heading1a SectionTitle">Leaderboard</h2>
+                        <div class="mgb10"><strong><a href="/leaderboards/?which=mostansweredpast7">Most Ranked Artists in Past 7 Days</a></strong></div>                        
+                        
+                                                     
+                                <div class="member">
+
+                                <div class="info counter">1.</div>
+                                <div class="info"><img src="http://gorankem.com/photos/fullsize/6.jpg" width="25" height="25"></div>
+                                <div class="info last">
+                                     <strong><a class="modalInfo" rel="1421836">RoadWarrior</a></strong><br />
+                                     <small>Rankings: 52 | Level: Platinum</small>
+                                </div>
+                                </div>
+
+                              
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            </div>
+                <!-- Leaderboard : end -->
+				
+				<!-- Popular Questions : start -->
+				<div class="popularQuestions FLC">
+					<h2 class="Heading1a SectionTitle">Popular Searches</h2>
+					<ol>
+
+												<li class="FLC">
+							<span class="Heading1a">1</span>
+							<a href="/q_view/1855458" class="Title5b">Red Hot Chili Peppers</a>
+							<p class="Note">396 Rankings</p>
+						</li>
+					
+											</ol>
+				</div>
+
+				<!-- Popular Questions : end -->
+                            </div>
+            <!-- Column 2 : end -->
+            <div id="happening_now" class="happeningNow Column1">
+			                <h2 class="Heading1a SectionTitle">results <span class="Note">The stuff you searched for</span></h2>
+			                <table>
+			                    <thead>
+			                        <tr>
+			                            <th>Activity</th>
+			                            <th>Posted</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody id="hn_table">
+									<div id="results">
+									
+									</div>
+								</tbody>
+							</table>
+			</div>
+			            
+            </div>
+    </div>
+    <!-- Content : end -->
+
+         <!-- Footer : start -->
+         
+        <div class="Footer">
+            <div class="Frame">
+
+            
+                <ul class="FLC">
+                    <li class="about">
+                        <dl>
+                            <dt class="Heading2a SectionTitle">About Us</dt>
+                            <dd><a href="/about-us/">About BestSongz</a></dd>
+
+                                                        							<dd>&nbsp;</dd>
+                        </dl>
+						<dl>
+							<dt class="Heading2a SectionTitle">Legal</dt>
+								<dd><a href="/privacy/">Privacy Policy</a></dd>
+								<dd><a href="/terms/">Terms of Use</a></dd>
+								<dd><a href="/disclaimer/">Disclaimer</a></dd>
+
+								<dd>&nbsp;</dd>
+						</dl>
+                    </li>
+                    <li class="fanPage">
+                        <dl>
+							<dt class="Heading2a SectionTitle">Follow Us on Facebook</dt>
+							<dd>
+								<a href="http://www.facebook.com/rankem" target="_blank"><img src="http://gorankem.com/images/facebook.png" alt="BestSongz.com on Facebook" width="49" height="51" class="logo" />
+									<p>Like us on facebook to get first dibs on all the freebies and BestSongz news!</p>
+								</h6>
+							</dd>
+							
+                                                    </dl>
+
+                    </li>
+                    <li class="latestTweets">
+                        <dl>
+                            <dt class="Heading2a SectionTitle">Latest Tweet</dt>
+                            <dd class="tweet">Are you gay? If so don't follow us on twitter!</dd>
+                            <dd>
+                                <div class="TwitterFollowUsV2">
+
+                                    <p class="Title5a"><a href="http://twitter.com/rankem_music">Follow BestSongz on Twitter!</a></p>
+                                </div>
+
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
+            
+            </div>
+        </div>
+
+        <!-- Footer : end -->
+        
+        <!-- SubFooter : start -->
+        <div class="SubFooter">
+            <div class="Frame">
+                <div class="copyright Note FLC">
+                    <p>		<script type="text/javascript">
+			var html_compressed = '<span>Copyright &copy; 2011</span>';
+			document.write(html_compressed);
+		</script> BestSongz</p>
+                    <ul>
+
+                        <li><a href="http://www.youtube.com">YouTube</a></li>
+                        <li><a href="http://www.last.fm/">Last FM</a></li>
+                    </ul>
+                    <a href="http://gorankem.com/"><img class="brick" src="http://gorankem.com/images/logo32.png" alt="Rank 'em" width="241" height="100" /></a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SubFooter : end --> 
+
+
+    </body>
+</html>
