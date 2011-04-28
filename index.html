@@ -5,10 +5,16 @@
 <title>Find the Best Songz for any artist!</title>
 
 <link rel="stylesheet" href="stylesheet.css" type="text/css" />
+
 <script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
+	var ex=$("#examples");
+	random_artists=["Van Halen", "David Lee Roth", "Sammy Hagar", "Steve Vai", "Michael Jackson","White Snake","Prince","Poison","Guns and Roses","Metallica","Motley Crue"];
+	num=Math.floor(Math.random()*11)
+	random_artist=random_artists[num];
+	ex.text("ex: " + random_artist);
 	var query;
 		$('#button1').click(function(){
 			search=$("#query").val();
@@ -20,21 +26,22 @@ $(document).ready(function(){
 					if (this['position']=="1")
 				    {
 					query=this['search-result']['id'];
+					var img_url='http://gorankem.com:4000/api/v1/artist/image2/'+query+'.js?callback=?';
+					//	$.getJSON(img_url,function(json){
+					//		$.each(json.image,function(i,img){
+					//	   		$("#results").prepend('<p><img src='+img.url+' /></p>');
+					//		});
+					//	});
 					//get top tracks from the artist
 					var url='http://gorankem.com:4000/api/v1/artist/tracks/'+query+'.js?callback=?';
 
 					$.getJSON(url,function(json){
 						$("#results").text("")
 						$.each(json.tracks,function(i,track){
-					   		$("#results").append('<p>'+track.rank+': '+track.title+'</p>');
+					   		$("#results").append('<p class="Heading1a">'+track.rank+' '+track.title+' with ' +track.value +' points</p>');
 						});
 					});
-				var img_url='http://gorankem.com:4000/api/v1/artist/image2/'+query+'.js?callback=?';
-					$.getJSON(img_url,function(json){
-						$.each(json.image,function(i,img){
-					   		$("#results").prepend('<p><img src='+img.url+' /></p>');
-						});
-					});
+				
 					
 					
 					}
@@ -42,11 +49,6 @@ $(document).ready(function(){
 			});
 		
 			
-	});
-	var query;
-		$('#button2').click(function(){
-			query=$("#query").val();
-
 	});
 	
 });
@@ -66,31 +68,39 @@ $(document).ready(function(){
 	
 	    }
 	);
-
-var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=The Beatles&api_key=67cdab0ced66f1fcd971fc1bef514ff0&format=json&callback=?";
+*/
+$(function(){
+$('#button1').click(function(){
+	$('.lastfmImage').remove();
+	$('.lastfmBio').remove();
+query=$("#query").val();
+$("#searched_for").text('You searched for ' +query);
+var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+query+"&api_key=67cdab0ced66f1fcd971fc1bef514ff0&format=json&callback=?";
 
 	$.getJSON(theUrl, function(data) {
  	if (data.artist==null)
  	{
- 	alert("you didnt freakin do it right!!")
+ 	alert("no artist found")
  	}
  	else
  	{
-		var body = document.getElementById("index");
+		var body = document.getElementById("song-list");
 	
               $.each(data.artist.image, function(i,img){
-            	
+            	if (img['size']=='mega'){
             	var image=document.createElement('img');
             	image.setAttribute('src', img['#text']);
             	image.setAttribute('id', i+' - '+img['size']);
+				image.setAttribute('class','lastfmImage');
             	body.appendChild(image);
             	("image size: "+ this['size'] + "  image url: " + this['#text']);
-            	
+        		}
               });
-              var shortbio=document.createElement('div');
+             /* var shortbio=document.createElement('div');
+			  shortbio.setAttribute('class','lastfmBio');
               shortbio.innerHTML=(data.artist.bio.summary);
               body.appendChild(shortbio);
-              
+              */
               var br=document.createElement('br');
               
               
@@ -98,9 +108,12 @@ var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=The B
               body.appendChild(br);
 
               var header=document.createElement('hr');
+			  header.setAttribute('class','lastfmBio');
               body.appendChild(header);
 
               var longbio=document.createElement('div');
+			  longbio.setAttribute("style","height:800px;overflow-y:auto;");
+			  longbio.setAttribute('class','lastfmBio');
               longbio.innerHTML=(data.artist.bio.content);
               body.appendChild(longbio);
               
@@ -108,8 +121,9 @@ var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=The B
 			return this;
 	};
     });
-*/
 
+});
+});
 </script>
 <!--[if IE]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
@@ -132,50 +146,53 @@ var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=The B
 </head>
 
 <body id="index" class="home" >
+	<!-- Content : start -->
+    <div class="Content" id="Home">
 
-<header id="banner" class="body">
-	<h1>BESTSONGZ <strong>Find the songz you were meant to hear!</strong></h1>
-	
-</header><!-- /#banner -->	
-
-<aside id="featured" class="body"><article>
-	<figure>
-		
-	</figure>
-	<hgroup>
-
-			<input type="text" id="query" /><button id="button1">search</button><br />
-			<div id="results">
-
+        <div class="Frame FLC">
+        
+                        
+            <div class="Box1 SearchAnswers">
+                <label for="askQuestion" class="Heading1a" style="display:inline; padding-right:10px;">Enter an artist name</label><span class="Note" style="color:#666666;">and find the fan favorite songs!</span><br />
+                <input type="text" name="question" value="" id="query" class="textInput" style="background-image: none; width:805px;" />
+				<input type="submit" id="button1" name="go" value="Submit" class="submitButton Heading2a" />
+            <br />
+			<span class="Note" id="examples" style="color:#666666;"></span>
 			</div>
-	</hgroup>
-	
+            <div id="happening_now" class="happeningNow Column1">
+			                <h2 class="Heading1a SectionTitle">top songs <span id="searched_for" class="Note">from the artist you searched for</span></h2>
+			                <table>
+			                    <thead>
+			                        <tr>
+			                            <th>Activity</th>
+			                            <th>Posted</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody id="hn_table">
+									<div id="results">
+									
+									</div>
+								</tbody>
+							</table>
+							<ol id="song-list">
+							</ol>
+			</div>
+			            
+            </div>
 
-</article></aside><!-- /#featured -->
 
-<section id="content" class="body">
-	<ol id="song-list" class="">
-	
-
-	</ol><!-- /#song-list -->
-</section><!-- /#content -->
+			<footer id="footer-content" class="body">
 
 
-
-<footer id="footer-content" class="body">
-	<address id="about" class="vcard body">
-		<span class="primary">
-			<strong><a href="#" class="fn url">Best Songz</a></strong>
-
-			<span class="role">GoRankem</span>
-		</span><!-- /.primary -->
+					<span class="bio">Best Songz brings the fan sentiment to you, allowing you to find the best songz from any artist via the <a href="http://gorankem.com">GoRankem API</a></span>
 
 
-		<span class="bio">Best Songz brings the fan sentiment to you, allowing you to find the best songz from any artist</span>
+			</footer><!-- /#footer-content -->
+    </div>
+    <!-- Content : end -->
 
-	</address><!-- /#about -->
-	<p>2011 <a href="http://bestsongz.com">BestSongz</a></p>
-</footer><!-- /#footer-content -->
+
+
 
 </body>
 </html>

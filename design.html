@@ -122,31 +122,117 @@
 		</script>
        	<script type="text/javascript">
 	jQuery.noConflict()(function($) {
-		$(document).ready(function(){
 			var query;
 				$('#button1').click(function(){
-					query=$("#query").val();
-					var url='http://gorankem.com:4000/api/v1/artist/tracks/'+query+'.js?callback=?';
+					search=$("#query").val();
 
-				$.getJSON(url,function(json){
-					$.each(json.tracks,function(i,track){
-					   $("#results").append('<p>'+track.title+':'+track.rank+'</p>');
+					search_url="http://www.gorankem.com:4000/api/v1/search/results/"+search+".js?callback=?";
+					//extract the id from search
+					$.getJSON(search_url,function(json){
+						$.each(json,function(i,result){
+							if (this['position']=="1")
+						    {
+							query=this['search-result']['id'];
+							var img_url='http://gorankem.com:4000/api/v1/artist/image2/'+query+'.js?callback=?';
+							//	$.getJSON(img_url,function(json){
+							//		$.each(json.image,function(i,img){
+							//	   		$("#results").prepend('<p><img src='+img.url+' /></p>');
+							//		});
+							//	});
+							//get top tracks from the artist
+							var url='http://gorankem.com:4000/api/v1/artist/tracks/'+query+'.js?callback=?';
+
+							$.getJSON(url,function(json){
+								$("#results").text("")
+								$.each(json.tracks,function(i,track){
+							   		$("#results").append('<p>'+track.rank+': '+track.title+' with ' +track.value +' points</p>');
+								});
+							});
+
+
+
+							}
+						});
 					});
-				});
-				var img_url='http://gorankem.com:4000/api/v1/artist/image2/'+query+'.js?callback=?';
-				$.getJSON(img_url,function(json){
-					$.each(json.image,function(i,img){
-					   $("#results").prepend('<p><img src='+img.url+' /></p>');
-					});
-				});
-			});
-			var query;
-				$('#button2').click(function(){
-					query=$("#query").val();
+
 
 			});
+
 		});
-	})
+
+		//
+		/*	$.getJSON(theUrl + "?callback=?",null,
+			    function(data) {
+
+
+				  $.each(data, function() {
+				    $("#song-list").append('<li>'+data.tracks.rank+'</li>');
+				//'<li id="' + this.tracks['rank'] + '"><h2 class="song-title"><a href="#" title="'+this.tracks['title']+'">'+this.tracks['title']+'</a></h2><div class="song-content">'+ this.tracks['value'] + ' points.</div><!-- /.song-content --></li>'
+				  });
+				var songList=document.getElementById("song-list");
+				alert(this);  
+				//songList.appendChild(items);
+
+			    }
+			);
+		*/
+		jQuery.noConflict()(function($) {
+		$('#button1').click(function(){
+			$('.lastfmImage').remove();
+			$('.lastfmBio').remove();
+		query=$("#query").val();
+		alert(query);
+		var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+query+"&api_key=67cdab0ced66f1fcd971fc1bef514ff0&format=json&callback=?";
+
+			$.getJSON(theUrl, function(data) {
+		 	if (data.artist==null)
+		 	{
+		 	alert("no artist found")
+		 	}
+		 	else
+		 	{
+				var body = document.getElementById("song-list");
+
+		              $.each(data.artist.image, function(i,img){
+						if (img['size']=='mega'){
+		            	var image=document.createElement('img');
+		            	image.setAttribute('src', img['#text']);
+		            	image.setAttribute('id', i+' - '+img['size']);
+						image.setAttribute('class','lastfmImage');
+		            	body.appendChild(image);
+	            		}
+
+		              });
+		/*
+		              var shortbio=document.createElement('div');
+					  shortbio.setAttribute('class','lastfmBio');
+		              shortbio.innerHTML=(data.artist.bio.summary);
+		              body.appendChild(shortbio);
+
+		              var br=document.createElement('br');
+					  
+
+		              body.appendChild(br);
+		              body.appendChild(br);
+
+		              var header=document.createElement('hr');
+					  header.setAttribute('class','lastfmBio');
+		              body.appendChild(header);
+		*/
+		              var longbio=document.createElement('div');
+					  longbio.setAttribute("style","height:400px;width:600px;overflow-y:auto;");
+					  longbio.setAttribute('class','lastfmBio');
+		              longbio.innerHTML=(data.artist.bio.content);
+		              body.appendChild(longbio);
+
+
+					return this;
+			};
+		    });
+
+		});
+		});
+	
 	function toggle_categories(a){cat_dropdown=a===undefined?
 		$("category_dropdown"):$(a);
 		if(cat_dropdown.style.display=="none")
@@ -422,6 +508,8 @@
 									</div>
 								</tbody>
 							</table>
+							<ol id="song-list">
+							</ol>
 			</div>
 			            
             </div>
