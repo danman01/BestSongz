@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Find the Best Songz for any artist!</title>
+
+<link rel="stylesheet" href="stylesheet.css" type="text/css" />
+
+<script type="text/javascript" src='http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js'></script>
+<script type="text/javascript" src='jquery.jTube.2.0.0.min.js'></script>
+
+<script type="text/javascript">
+function tog(i){
+	$("#show_video_"+i).toggle('slow');
+}
+$(document).ready(function(){
+	
+
+	//example generator
+	var ex=$("#examples");
+	random_artists=["Van Halen", "David Lee Roth", "Sammy Hagar", "Steve Vai", "Michael Jackson","White Snake","Prince","Poison","Guns N' Roses","Metallica","Motley Crue"];
+	num=Math.floor(Math.random()*11)
+	random_artist=random_artists[num];
+	ex.text("ex: " + random_artist);
+	var query;
+		$('#button1').click(function(){
+			search=$("#query").val();
+			
+			search_url="http://www.gorankem.com:4000/api/v1/search/results/"+search+".js?callback=?";
+			//extract the id from search
+			$.getJSON(search_url,function(json){
+				$.each(json,function(i,result){
+					if (this['position']=="1")
+				    {
+					query=this['search-result']['id'];
+					var img_url='http://gorankem.com:4000/api/v1/artist/image2/'+query+'.js?callback=?';
+					//	$.getJSON(img_url,function(json){
+					//		$.each(json.image,function(i,img){
+					//	   		$("#results").prepend('<p><img src='+img.url+' /></p>');
+					//		});
+					//	});
+					//get top tracks from the artist
+					var url='http://gorankem.com:4000/api/v1/artist/tracks/'+query+'.js?callback=?';
+
+					$.getJSON(url,function(json){
+						$("#results").text("")
+						$.each(json.tracks,function(i,track){
+					   		$("#results").append('<p class="Heading1a" id=track_'+i+'>'+track.rank+' '+track.title+' with ' +track.value +' points</p>');
+							// YOUTUBE VIDS
+
+							$.jTube({
+							    request: 'search',
+							    requestValue: track.title + ' by ' + json.artist_name ,
+							    requestOption: 'video',
+								order: 'relevance',
+								limit:1,
+							    success: function(videos){
+								$.each(videos, function(){
+								$("#track_"+i).append('<div id=show_video_'+i+' style="display:none;"><iframe src="http://www.youtube.com/embed/'+this.id+'" width="320" height="190"></iframe></div>');	
+								})
+								}
+
+							    })
+							$("#track_"+i).append('<p><a href="javascript:tog('+i+')" id=video_'+i+'>play vid</a></p>')
+						}); // end getJSON loop
+					});
+				
+					
+					
+					}
+				});
+			});
+		
+			
+	});
+	
+});
+
+//
+/*	$.getJSON(theUrl + "?callback=?",null,
+	    function(data) {
+		
+
+		  $.each(data, function() {
+		    $("#song-list").append('<li>'+data.tracks.rank+'</li>');
+		//'<li id="' + this.tracks['rank'] + '"><h2 class="song-title"><a href="#" title="'+this.tracks['title']+'">'+this.tracks['title']+'</a></h2><div class="song-content">'+ this.tracks['value'] + ' points.</div><!-- /.song-content --></li>'
+		  });
+		var songList=document.getElementById("song-list");
+		alert(this);  
+		//songList.appendChild(items);
+	
+	    }
+	);
+*/
+$(function(){
+$('#button1').click(function(){
+	$('.lastfmImage').remove();
+	$('.lastfmBio').remove();
+query=$("#query").val();
+$("#searched_for").text('You searched for ' +query);
+var theUrl="http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist="+query+"&api_key=67cdab0ced66f1fcd971fc1bef514ff0&format=json&callback=?";
+
+	$.getJSON(theUrl, function(data) {
+ 	if (data.artist==null)
+ 	{
+ 	alert("no artist found")
+ 	}
+ 	else
+ 	{
+		var body = document.getElementById("song-list");
+	
+              $.each(data.artist.image, function(i,img){
+            	if (img['size']=='mega'){
+            	var image=document.createElement('img');
+            	image.setAttribute('src', img['#text']);
+            	image.setAttribute('id', i+' - '+img['size']);
+				image.setAttribute('class','lastfmImage');
+            	body.appendChild(image);
+            	("image size: "+ this['size'] + "  image url: " + this['#text']);
+        		}
+              });
+             /* var shortbio=document.createElement('div');
+			  shortbio.setAttribute('class','lastfmBio');
+              shortbio.innerHTML=(data.artist.bio.summary);
+              body.appendChild(shortbio);
+              */
+              var br=document.createElement('br');
+              
+              
+              body.appendChild(br);
+              body.appendChild(br);
+
+              var header=document.createElement('hr');
+			  header.setAttribute('class','lastfmBio');
+              body.appendChild(header);
+
+              var longbio=document.createElement('div');
+			  longbio.setAttribute("style","height:800px;overflow-y:auto;");
+			  longbio.setAttribute('class','lastfmBio');
+              longbio.innerHTML=(data.artist.bio.content);
+              body.appendChild(longbio);
+              
+              
+			return this;
+	};
+    });
+
+});
+
+});
+
+</script>
+
+
+
+<!--[if IE]>
+	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<!--[if lte IE 7]>
+	<script src="js/IE8.js" type="text/javascript"></script><![endif]-->
+<!--[if lt IE 7]>
+
+	<link rel="stylesheet" type="text/css" media="all" href="css/ie6.css"/><![endif]-->
+<script type="text/javascript">
+ var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-22336211-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</head>
+
+<body id="index" class="home" >
+	<!-- Content : start -->
+    <div class="Content" id="Home">
+
+        <div class="Frame FLC">
+        
+                        
+            <div class="Box1 SearchAnswers">
+                <label for="askQuestion" class="Heading1a" style="display:inline; padding-right:10px;">Enter an artist name</label><span class="Note" style="color:#666666;">and find the fan favorite songs!</span><br />
+                <input type="text" name="question" value="" id="query" class="textInput" style="background-image: none; width:805px;" />
+				<input type="submit" id="button1" name="go" value="Submit" class="submitButton Heading2a" />
+            <br />
+			<span class="Note" id="examples" style="color:#666666;"></span>
+			</div>
+            <div id="happening_now" class="happeningNow Column1">
+			                <h2 class="Heading1a SectionTitle">top songs <span id="searched_for" class="Note">from the artist you searched for</span></h2>
+			                <table>
+			                    <thead>
+			                        <tr>
+			                            <th>Activity</th>
+			                            <th>Posted</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody id="hn_table">
+									<div id="results">
+									
+									</div>
+								</tbody>
+							</table>
+							<ol id="song-list">
+							</ol>
+			</div>
+			            
+            </div>
+
+
+			<footer id="footer-content" class="body">
+
+
+					<span class="bio">Best Songz brings the fan sentiment to you, allowing you to find the best songz from any artist via the <a href="http://gorankem.com">GoRankem API</a></span>
+
+
+			</footer><!-- /#footer-content -->
+    </div>
+    <!-- Content : end -->
+
+
+
+
+</body>
+</html>
+
+
